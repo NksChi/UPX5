@@ -11,6 +11,9 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+
+    
+
     if (username === 'user' && password === 'password') {
       setCookie('session', 'loggedin', { path: '/' });
       navigate('/home');
