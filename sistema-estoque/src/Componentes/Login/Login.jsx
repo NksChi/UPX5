@@ -1,5 +1,6 @@
 // src/Login.js
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
@@ -9,17 +10,19 @@ const Login = () => {
   const [cookies, setCookie] = useCookies(['session']);
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
-    
-
-    if (username === 'user' && password === 'password') {
-      setCookie('session', 'loggedin', { path: '/' });
-      navigate('/home');
-    } else {
-      alert('Credenciais inválidas');
-    }
+    try {
+        const response = await axios.post('http://localhost:5000/login', { username, password });
+        if (response.status === 200) {
+          setCookie('session', 'loggedin', { path: '/' });
+          navigate('/home');
+        } else {
+          alert('Credenciais inválidas');
+        }
+      } catch (error) {
+        alert('Erro ao tentar fazer login');
+      }
   }
 
   return (

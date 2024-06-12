@@ -1,4 +1,3 @@
-// backend/server.js
 const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
@@ -29,7 +28,7 @@ db.connect((err) => {
 // Rota de login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
+  const query = 'SELECT * FROM users WHERE email = ? AND senha = ?';
   db.query(query, [username, password], (err, results) => {
     if (err) {
       res.status(500).send('Erro no servidor');
