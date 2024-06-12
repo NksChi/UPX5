@@ -25,7 +25,7 @@ db.connect((err) => {
   console.log('Conectado ao banco de dados MySQL');
 });
 
-// Rota de login
+//breakpoint onde validamos o login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   const query = 'SELECT * FROM users WHERE email = ? AND senha = ?';
@@ -42,6 +42,7 @@ app.post('/login', (req, res) => {
   });
 });
 
+//porta onde roda o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
