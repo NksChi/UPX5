@@ -3,7 +3,7 @@ import React from "react"
 const Historico = () => {
     return(
         <div>
-            <h1>Olá mundo!</h1>
+            <h1>Historico</h1>
         </div>
     );
 }
