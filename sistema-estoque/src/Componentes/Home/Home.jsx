@@ -1,4 +1,3 @@
-// src/Dashboard.js
 import React from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +8,7 @@ const Home = () => {
 
   const handleLogout = () => {
     removeCookie('session', { path: '/' });
-    navigate('/');
+    navigate('/home');
   }
 
   return (

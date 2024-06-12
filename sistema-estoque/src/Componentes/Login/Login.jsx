@@ -11,10 +11,9 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Simulação de login bem-sucedido
     if (username === 'user' && password === 'password') {
       setCookie('session', 'loggedin', { path: '/' });
-      navigate('/dashboard');
+      navigate('/home');
     } else {
       alert('Credenciais inválidas');
     }
