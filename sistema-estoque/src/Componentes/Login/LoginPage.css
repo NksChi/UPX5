@@ -20,6 +20,9 @@
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   width: 300px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alinha conteúdo no centro verticalmente */
 }
 
 .login-header {
@@ -51,6 +54,7 @@
 .login-input-group {
   margin-bottom: 16px;
   text-align: left;
+  width: 100%; /* Define largura total */
 }
 
 .login-input-group label {
@@ -67,7 +71,7 @@
 }
 
 button[type="submit"] {
-  width: 100px;
+  width: 100%;
   padding: 12px;
   border: none;
   border-radius: 20px;
@@ -84,6 +88,7 @@ button[type="submit"]:hover {
 
 .forgot-password-container {
   text-align: right;
+  width: 100%; /* Define largura total */
 }
 
 .login-forgot-password-link {
@@ -97,6 +102,6 @@ button[type="submit"]:hover {
 
 .footer {
   margin-top: 16px;
-  color: #555;
+  color: #000;
   font-size: 14px;
 }

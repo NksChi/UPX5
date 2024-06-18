@@ -1,0 +1,137 @@
+.left-section {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.navbar {
+  background-color: #fff;
+  border: 1px solid #000;
+  padding: 16px 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.navbar-logo {
+  display: flex;
+  align-items: center; /* Centraliza verticalmente o logo com o ícone do menu */
+}
+.navbar-logo img {
+  width: 80px;
+  height: 80px;
+}
+
+.navbar-search {
+  flex: 1; /* Para ocupar o espaço restante */
+  margin-left: 50px; /* Espaçamento entre o logo/menu e a barra de pesquisa */
+}
+
+.navbar-search input {
+  width: 75%; /* Para ocupar todo o espaço disponível */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.navbar-toggle {
+  background-color: #fff; 
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 8px 16px; /* Ajuste o padding conforme necessário */
+  border-radius: 5px; /* Opcional: adicione borda arredondada */
+  color: #fff; /* Opcional: cor do texto dentro do botão */
+}
+
+.navbar-menu {
+  color: #fff;
+  display: none;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%; /* Posiciona o menu abaixo da barra de navegação */
+  left: 0;
+  background-color: #fff;
+  width: 100%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Ajusta o z-index para aparecer acima do conteúdo */
+}
+
+.navbar-menu.is-open {
+  display: flex;
+}
+
+.navbar-item {
+  margin-bottom: 16px;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 16px; /* Espaçamento entre o menu do usuário e o botão toggle */
+}
+
+.user-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-menu-icon {
+  font-size: 20px;
+  color: #000;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+.user-menu:hover .user-dropdown {
+  display: block;
+}
+
+.user-dropdown li {
+  padding: 8px 16px;
+}
+
+.user-dropdown li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.user-dropdown li button {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+}
