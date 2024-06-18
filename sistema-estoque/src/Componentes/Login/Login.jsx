@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import './LoginPage.css';
+import newtonPaivaLogo from '../../assets/newton_paiva_logo.png';
+import recycleTech from '../../assets/recycle_tech.png';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -27,19 +29,19 @@ const Login = () => {
 
   return (
     <div className="login-page">
+      <img src={newtonPaivaLogo} alt="Top" className="top-image" />
       <div className="login-container">
         <div className="login-header">
-          <img src="https://qima-lifesciences.com/newtone-technologies/" />
+          <img src={recycleTech} alt="Logo" />
           <h1>
             <span className="tech">Tech</span>
             <span className="lifecycle">LifeCycle</span>
           </h1>
-          <h2>Acesse sua conta</h2>
         </div>
-
+        <h2>Acesse sua</h2>
         <form onSubmit={handleLogin}>
           <div className="login-input-group">
-            <label htmlFor="username">Nome de usuário</label>
+            <label htmlFor="username">Login:</label>
             <input
               type="text"
               id="username"
@@ -49,7 +51,7 @@ const Login = () => {
           </div>
 
           <div className="login-input-group">
-            <label htmlFor="password">Senha</label>
+            <label htmlFor="password">Senha:</label>
             <input
               type="password"
               id="password"
@@ -58,10 +60,14 @@ const Login = () => {
             />
           </div>
 
+          <div className="forgot-password-container">
+            <a href="#" className="login-forgot-password-link">Esqueceu a senha?</a>
+          </div>
           <button type="submit">Entrar</button>
         </form>
-
-        <button className="login-forgot-password-link" onClick={() => {}}>Esqueceu a senha?</button>
+      </div>
+      <div className="footer">
+        &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados.
       </div>
     </div>
   );
