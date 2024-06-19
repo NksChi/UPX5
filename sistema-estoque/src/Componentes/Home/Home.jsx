@@ -10,7 +10,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="home-container">
+    <div>
       <Navbar />
       <div className="content">
         {cookies.session ? (

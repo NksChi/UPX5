@@ -1,34 +1,14 @@
-.home-container {
+.content {
     text-align: center;
     margin-top: 200px; 
   }
-  
-  .home-container h2 {
-    font-size: 2em;
-  }
-  
-  .home-container p {
-    margin-bottom: 10px;
-  }
-  
-  .home-container button {
-    background-color: #11b367;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 1em;
-  }
-  
-  .home-container button:hover {
-    background-color: #11b367;
-  }
-  
+
   .techlife-logo {
     margin-top: 20px; 
   }
   
   .footer {
+    text-align: center;
     margin-top: 16px;
     color: #555;
     font-size: 14px;

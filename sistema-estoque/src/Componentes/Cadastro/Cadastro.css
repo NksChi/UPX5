@@ -1,0 +1,54 @@
+.register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 100vh;
+    background-color: #f9f9f9;
+
+}
+.page-container {
+    margin-top: 5px; /* Ajuste conforme necessário */
+    padding: 20px;
+    max-width: 600px;
+    margin-right: 500px;
+  }
+  
+  .page-container h1 {
+    text-align: center;
+    margin-bottom: 20px;    
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input,
+  select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: #11b367;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0e9b5d;
+  }
+  
