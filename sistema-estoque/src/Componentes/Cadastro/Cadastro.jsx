@@ -1,11 +1,12 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Elements/Navbar/Navbar';
-import './Cadastro.css'; // Importa o CSS específico para o componente Cadastro
+import Server from '../../assets/Server_Icon.png';
+import './Cadastro.css';
 
 const Cadastro = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['session']);
+  const [cookies, , removeCookie] = useCookies(['session']);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -67,7 +68,7 @@ const Cadastro = () => {
             onChange={(event) => setValor(event.target.value)}
           />
 
-          <label htmlFor="numeroSerie">N° de serie:</label>
+          <label htmlFor="numeroSerie">N° de série:</label>
           <input
             type="text"
             id="numeroSerie"
@@ -106,11 +107,11 @@ const Cadastro = () => {
           <button type="submit">Cadastrar</button>
         </form>
       </div>
-      <div>
-        rick silva cala a boca
+      <div className="image-container">
+        <img src={Server} alt="Server" className="top-image" />
       </div>
     </div>
   );
-}
+};
 
 export default Cadastro;
