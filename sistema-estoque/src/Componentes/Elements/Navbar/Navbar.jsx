@@ -16,6 +16,7 @@ const Navbar = ({ handleLogout }) => {
   const handleUserMenuToggle = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
   };
+  
 
   return (
     <nav className={styles.navbar}>

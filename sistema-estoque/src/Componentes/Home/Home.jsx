@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Elements/Navbar/Navbar'; 
-import TechLife from '../../assets/TechLifeCycle_Logo.png'
+import TechLife from '../../assets/TechLifeCycle_Logo.png';
 import './Home.css'; 
 
 const Home = () => {
-  const [cookies] = useCookies(['session']);
+  const [cookies, , removeCookie] = useCookies(['session']);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!cookies.session) {
+      navigate('/login');
+    }
+  }, [cookies.session, navigate]);
+
+  const handleLogout = () => {
+    removeCookie('session', { path: '/' });
+    navigate('/login');
+  };
 
   return (
     <div>
-      <Navbar />
+      <Navbar handleLogout={handleLogout} />
       <div className="content">
         {cookies.session ? (
           <div>
