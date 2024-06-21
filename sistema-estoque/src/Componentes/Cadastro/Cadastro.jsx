@@ -34,7 +34,6 @@ const Cadastro = () => {
       dataFabricacao,
     };
 
-    // Salvar o produto no banco de dados ou API
     console.log(produto);
   };
 

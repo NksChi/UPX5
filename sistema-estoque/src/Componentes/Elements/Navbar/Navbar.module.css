@@ -59,6 +59,7 @@
 
 .navbarMenu {
   color: #fff;
+  text-align: center;
   display: none;
   flex-direction: column;
   list-style: none;
@@ -100,10 +101,9 @@
 }
 
 .userIcon {
-  width: 70px;
-  height: 40px;
+  width: 80px;
+  height: 50px;
   margin-right: 10px;
-  background-color: #deefe7;
 }
 
 .userMenuIcon {

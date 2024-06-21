@@ -41,7 +41,7 @@ const Navbar = ({ handleLogout }) => {
               </NavLink>
             </li>
             <li className={styles.navbarItem}>
-              <NavLink className={styles.navbarColor} to="/consultar-historico" onClick={handleMenuToggle}>
+              <NavLink className={styles.navbarColor} to="/historico" onClick={handleMenuToggle}>
                 Consultar Histórico
               </NavLink>
             </li>
