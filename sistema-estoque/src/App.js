@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/" element={cookies.session ? <Navigate to="/home" /> : <Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<PrivateRoute component={<Home />} />} />
-        <Route path="/historico" element={<PrivateRoute component={<Historico />} />} />
+        <Route path="/equipamentos" element={<PrivateRoute component={<Historico />} />} />
         <Route path="/cadastro" element={<PrivateRoute component={<Cadastro />} />} />
         <Route path="/descarte" element={<PrivateRoute component={<Descarte />} />} />
       </Routes>

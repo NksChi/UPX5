@@ -15,25 +15,45 @@ const Descarte = () => {
 
   const [descarte, setDescarte] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const fakeData = [
-      { numeroSerie: 'ASD1234J', modelo: 'Switch Cisco Catalyst 9300', dataFabricacao: '2024-03-22', cicloVida: '5 anos', empresaColeta: 'E-MILE Reciclagem de Lixo Eletrônico', status: 'Pendente' },
-      { numeroSerie: 'BVN5678L', modelo: 'Switch Juniper EX4300', dataFabricacao: '2024-08-15', cicloVida: '6 anos', empresaColeta: 'COLETABH', status: 'Concluído' },
-      { numeroSerie: 'TYU3456K', modelo: 'Servidor Dell PowerEdge R740', dataFabricacao: '2024-11-01', cicloVida: '7 anos', empresaColeta: 'Lithium Informática', status: 'Pendente' },
-      { numeroSerie: 'UIO6789M', modelo: 'Servidor HPE ProLiant DL360', dataFabricacao: '2024-06-30', cicloVida: '8 anos', empresaColeta: 'Reciclando BH', status: 'Concluído' },
-      { numeroSerie: 'PLK9012N', modelo: 'Access Point Aruba 340 Series', dataFabricacao: '2024-09-18', cicloVida: '6 anos', empresaColeta: 'RECICLA CLUB Gestão de Resíduos', status: 'Pendente' },
-      { numeroSerie: 'QWE4567O', modelo: 'Router Cisco ASR 1001-X', dataFabricacao: '2024-05-27', cicloVida: '9 anos', empresaColeta: 'Electra Reciclo', status: 'Concluído' }
-    ];
-    setDescarte(fakeData);
+    fetchData();
   }, []);
 
-  const handleAtualizar = () => {
-    console.log('Atualizando dados de descarte...');
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/equipments/descarte');
+      if (!response.ok) {
+        throw new Error('Erro ao buscar os dados');
+      }
+      const data = await response.json();
+      setDescarte(data);
+    } catch (error) {
+      console.error('Erro ao buscar os dados:', error);
+    }
   };
 
-  const handleSolicitarDescarte = () => {
-    setShowPopup(true);
+  const handleAtualizar = () => {
+    fetchData();
+  };
+
+  const handleSolicitarDescarte = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/equipments/solicitar-descarte', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result = await response.text();
+      setMessage(result);
+      setShowPopup(true); // Mostra o popup de confirmação
+      fetchData(); // Atualiza a lista de equipamentos marcados para descarte
+    } catch (error) {
+      console.error('Erro ao solicitar descarte:', error);
+      setMessage('Erro ao solicitar descarte');
+    }
   };
 
   const closePopup = () => {
@@ -43,11 +63,10 @@ const Descarte = () => {
   const DescarteItem = ({ item }) => {
     return (
       <tr className="descarte-container">
-        <td>{item.status}</td>
         <td>{item.numeroSerie}</td>
-        <td>{item.modelo}</td>
+        <td>{item.marca}</td>
         <td>{formatarData(item.dataFabricacao)}</td>
-        <td>{item.cicloVida}</td>
+        <td>{item.data_ciclo_vida}</td>
         <td>{item.empresaColeta}</td>
       </tr>
     );
@@ -67,17 +86,16 @@ const Descarte = () => {
       <Navbar handleLogout={handleLogout} />
       <div className="container">
         <h1 className="mt-4">Descarte</h1>
+        {message && <div className="alert alert-info">{message}</div>}
         <div className="row">
           <div className="col">
             <table className="table table-striped DescarteTable">
               <thead>
                 <tr>
-                  <th>Status</th>
                   <th>N° de série</th>
                   <th>Modelo</th>
                   <th>Data de Fabricação</th>
                   <th>Ciclo de vida</th>
-                  <th>Empresa para coleta</th>
                 </tr>
               </thead>
               <tbody>
@@ -92,11 +110,11 @@ const Descarte = () => {
             <div className="footer">
               <button className="btn success" onClick={handleSolicitarDescarte}>Solicitar Descarte</button>
               <footer className="footer-text">
-              &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados. 
-              <span className='upx'> 
-                / UPX5 - GRUPO 8
-              </span>
-                </footer>
+                &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados.
+                <span className='upx'>
+                  / UPX5 - GRUPO 8
+                </span>
+              </footer>
             </div>
           </div>
         </div>

@@ -22,7 +22,10 @@ const Cadastro = () => {
   const [tipo, setTipo] = useState('');
   const [dataFabricacao, setDataFabricacao] = useState('');
 
-  const handleSubmit = (event) => {
+  const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const produto = {
@@ -30,16 +33,47 @@ const Cadastro = () => {
       marca,
       valor,
       numeroSerie,
+      valorS,
       tipo,
       dataFabricacao,
     };
 
-    console.log(produto);
+    try {
+      const response = await fetch('http://localhost:5000/cadastro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(produto),
+      });
+
+      if (response.ok) {
+        setMessage('Cadastro bem-sucedido!');
+        setIsSuccess(true);
+        clearFields();
+      } else {
+        setMessage('Erro ao cadastrar.');
+        setIsSuccess(false);
+      }
+    } catch (error) {
+      setMessage('Erro na requisição.');
+      setIsSuccess(false);
+    }
+  };
+
+  const clearFields = () => {
+    setNomeProduto('');
+    setMarca('');
+    setValor('');
+    setNumeroSerie('');
+    setValorS('');
+    setTipo('');
+    setDataFabricacao('');
   };
 
   return (
     <div>
-       <div className="register">
+      <div className="register">
         <Navbar handleLogout={handleLogout} />
         <div className="page-container">
           <h1>Cadastro de Equipamentos</h1>
@@ -106,16 +140,20 @@ const Cadastro = () => {
 
             <button type="submit">Cadastrar</button>
           </form>
+          {message && (
+            <div className={isSuccess ? 'success-message' : 'error-message'}>
+              {message}
+            </div>
+          )}
         </div>
         <div className="image-container">
           <img src={Server} alt="Server" className="top-image" />
         </div>
       </div>
       <div className="footer-regis">
-            &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados. <span className='upx'> / UPX5 - GRUPO 8 </span>
+        &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados. <span className='upx'> / UPX5 - GRUPO 8 </span>
       </div>
     </div>
-   
   );
 };
 

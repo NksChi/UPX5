@@ -11,62 +11,98 @@ const Historico = () => {
   const handleLogout = () => {
     removeCookie('session', { path: '/' });
     navigate('/login');
-  }
+  };
 
   const [historico, setHistorico] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const fakeData = [
-      { numeroSerie: 'KG587T0', situacao: 'Entregue', modelo: 'Switch Cisco nexus 3132Qx', dataSaida: '2024-01-15', dataRetorno: '2024-01-20', valor: 299, marcarParaDescarte: false },
-      { numeroSerie: 'FT879H', situacao: 'Em trânsito', modelo: 'Switch Hp 5500-48G', dataSaida: '2024-02-17', dataRetorno: null, valor: 199, marcarParaDescarte: true },
-      { numeroSerie: 'MXQ74500C3', situacao: 'Entregue', modelo: 'Servidor Dell R630', dataSaida: '2024-05-18', dataRetorno: '2024-05-25', valor: 699, marcarParaDescarte: false },
-      { numeroSerie: 'BC1234A', situacao: 'Em trânsito', modelo: 'Servidor Hp DL 380 g9', dataSaida: '2024-01-07', dataRetorno: null, valor: 1100, marcarParaDescarte: false },
-      { numeroSerie: 'MK7890Z', situacao: 'Entregue', modelo: 'Access Point Cisco Aironet 2800', dataSaida: '2024-04-24', dataRetorno: '2024-04-30', valor: 900, marcarParaDescarte: true },
-      { numeroSerie: 'ZY1234W', situacao: 'Entregue', modelo: 'Router Cisco ISR 1900', dataSaida: '2024-04-24', dataRetorno: '2024-04-30', valor: 900, marcarParaDescarte: true }
-    ];
-    setHistorico(fakeData);
+    fetchData();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/equipments');
+      if (!response.ok) {
+        throw new Error('Erro ao buscar os dados');
+      }
+      const data = await response.json();
+      setHistorico(data);
+    } catch (error) {
+      console.error('Erro ao buscar os dados:', error);
+    }
+  };
+
   const handleAtualizarHistorico = () => {
-    const updatedData = historico.map(compra => ({
-      ...compra,
-      situacao: compra.situacao === 'Em trânsito' ? 'Entregue' : compra.situacao
-    }));
-    setHistorico(updatedData);
+    fetchData();
+  };
+
+  const handleSelectItem = (numeroSerie) => {
+    setSelectedItem(numeroSerie);
+  };
+
+  const handleMarcarParaDescarte = async () => {
+    if (selectedItem) {
+      try {
+        const response = await fetch('http://localhost:5000/equipments/descarte', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ numeroSerie: selectedItem }),
+        });
+        const result = await response.text();
+        setMessage(result);
+        fetchData();
+      } catch (error) {
+        setMessage('Erro ao marcar item para descarte');
+        console.error('Erro ao marcar item para descarte:', error);
+      }
+    }
   };
 
   return (
     <div>
       <Navbar handleLogout={handleLogout} />
       <div className="container">
-        <h1 className="mt-4">Histórico de Compras</h1>
+        <h1 className="mt-4">Equipamentos Listados</h1>
+        {message && <div className="alert alert-info">{message}</div>}
         <div className="row">
           <div className="col">
             <table className="table table-striped HistoricoTable">
               <thead>
                 <tr>
-                  <th>Situação</th>
                   <th>N° de série</th>
                   <th>Modelo</th>
-                  <th>Data de saída</th>
-                  <th>Data de Retorno</th>
+                  <th>Data de entrada</th>
                   <th>Valor</th>
-                  <th>Marcar para descarte</th>
+                  <th>Valor Sugerido</th>
+                  <th>Tipo</th>
+                  <th>Data de Fabricação</th>
                 </tr>
               </thead>
               <tbody>
                 {historico.map((compra) => (
-                  <Compra key={compra.numeroSerie} compra={compra} />
+                  <Compra
+                    key={compra.numeroSerie}
+                    compra={compra}
+                    onSelectItem={handleSelectItem}
+                    isSelected={compra.numeroSerie === selectedItem}
+                  />
                 ))}
               </tbody>
             </table>
             <div className="footer-regis">
               <button className="btn" onClick={handleAtualizarHistorico}>Atualizar Histórico</button>
+              <button className="btn btn-danger" onClick={handleMarcarParaDescarte} disabled={!selectedItem}>
+                Marcar para Descarte
+              </button>
               <footer className="footer-text">
-              &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados. 
-              <span className='upx'> 
-                / UPX5 - GRUPO 8
-              </span>
+                &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados.
+                <span className='upx'>
+                  / UPX5 - GRUPO 8
+                </span>
               </footer>
             </div>
           </div>
@@ -76,16 +112,19 @@ const Historico = () => {
   );
 };
 
-const Compra = ({ compra }) => {
+const Compra = ({ compra, onSelectItem, isSelected }) => {
   return (
-    <tr className="compra-container">
-      <td>{compra.situacao}</td>
+    <tr
+      className={`compra-container ${isSelected ? 'selected' : ''}`}
+      onClick={() => onSelectItem(compra.numeroSerie)}
+    >
       <td>{compra.numeroSerie}</td>
-      <td>{compra.modelo}</td>
-      <td>{formatarData(compra.dataSaida)}</td>
-      <td>{compra.dataRetorno ? formatarData(compra.dataRetorno) : 'Ainda em trânsito'}</td>
+      <td>{compra.nomeProduto}</td>
+      <td>{formatarData(compra.data_entrada)}</td>
       <td>{formatarValor(compra.valor)}</td>
-      <td>{compra.marcarParaDescarte ? 'sim' : 'não'}</td>
+      <td>{formatarValor(compra.valorS)}</td>
+      <td>{compra.tipo}</td>
+      <td>{formatarData(compra.dataFabricacao)}</td>
     </tr>
   );
 };

@@ -6,7 +6,7 @@ import UserIcon from '../../../assets/User.png';
 import styles from './Navbar.module.css';
 
 const Navbar = ({ handleLogout }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   const handleMenuToggle = () => {
@@ -40,8 +40,8 @@ const Navbar = ({ handleLogout }) => {
               </NavLink>
             </li>
             <li className={styles.navbarItem}>
-              <NavLink className={styles.navbarColor} to="/historico" onClick={handleMenuToggle}>
-                Consultar Histórico
+              <NavLink className={styles.navbarColor} to="/equipamentos" onClick={handleMenuToggle}>
+                Equipamentos
               </NavLink>
             </li>
             <li className={styles.navbarItem}>
