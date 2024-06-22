@@ -10,7 +10,7 @@ const Historico = () => {
 
   const handleLogout = () => {
     removeCookie('session', { path: '/' });
-    navigate('/historico');
+    navigate('/login');
   }
 
   const [historico, setHistorico] = useState([]);
@@ -60,9 +60,14 @@ const Historico = () => {
                 ))}
               </tbody>
             </table>
-            <div className="footer">
-              <button className="btn btn-primary btn-atualizar" onClick={handleAtualizarHistorico}>Atualizar Histórico</button>
-              <footer className="footer-text">&copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados.</footer>
+            <div className="footer-regis">
+              <button className="btn" onClick={handleAtualizarHistorico}>Atualizar Histórico</button>
+              <footer className="footer-text">
+              &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados. 
+              <span className='upx'> 
+                / UPX5 - GRUPO 8
+              </span>
+              </footer>
             </div>
           </div>
         </div>

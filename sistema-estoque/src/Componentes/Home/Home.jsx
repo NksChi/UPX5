@@ -37,8 +37,11 @@ const Home = () => {
           </div>
         )}
       </div>
-      <div className="footer">
-        &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados.
+      <div className="footer-home">
+        &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados. 
+        <span className='upx'> 
+          / UPX5 - GRUPO 8
+        </span>
       </div>
     </div>
   );

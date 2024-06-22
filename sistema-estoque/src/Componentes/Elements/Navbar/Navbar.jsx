@@ -16,7 +16,6 @@ const Navbar = ({ handleLogout }) => {
   const handleUserMenuToggle = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
   };
-  
 
   return (
     <nav className={styles.navbar}>
@@ -66,10 +65,10 @@ const Navbar = ({ handleLogout }) => {
             <IoChevronDown className={styles.userMenuIcon} />
             <ul className={`${styles.userDropdown} ${isUserMenuOpen ? styles.userDropdownIsOpen : ''}`}>
               <li>
-                <NavLink to="/perfil">Meu Perfil</NavLink>
+                <NavLink to="#">Meu Perfil</NavLink>
               </li>
               <li>
-                <NavLink to="/configuracoes">Configurações</NavLink>
+                <NavLink to="#">Configurações</NavLink>
               </li>
               <li>
                 <button onClick={handleLogout}>Logout</button>

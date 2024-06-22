@@ -29,10 +29,20 @@
     text-align: center;
   }
   
-  .footer {
+  .footer-regis {
     margin-top: 20px;
+    text-align: center;
   }
   
+  .btn{
+    background-color: #11b367;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
   .compra-container {
     border: 1px solid #ddd;
     border-radius: 5px;

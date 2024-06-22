@@ -108,6 +108,9 @@ const Cadastro = () => {
       </div>
       <div className="image-container">
         <img src={Server} alt="Server" className="top-image" />
+        <div className="footer-regis">
+          &copy; {new Date().getFullYear()} TechLifeCycle. Todos os direitos reservados. <span className='upx'> / UPX5 - GRUPO 8 </span>
+        </div>
       </div>
     </div>
   );
