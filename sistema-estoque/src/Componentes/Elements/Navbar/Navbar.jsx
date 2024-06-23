@@ -6,6 +6,7 @@ import UserIcon from '../../../assets/User.png';
 import styles from './Navbar.module.css';
 
 const Navbar = ({ handleLogout }) => {
+  
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
